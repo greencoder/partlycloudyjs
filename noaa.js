@@ -1,6 +1,6 @@
 class NOAA {
 
-  fetchAndParse = function(lat, lng) {
+  fetchAndParse(lat, lng) {
     return new Promise((resolve, reject) => {
       this.fetch(lat, lng).then(html => {
         let data = this.parse(html);
@@ -9,20 +9,19 @@ class NOAA {
     });
   }
 
-  fetch = async function(lat, lng) {
+  async fetch(lat, lng) {
     let url = `https://forecast.weather.gov/MapClick.php?lat=${lat}&lon=${lng}`;
-    console.log(url);
     let response = await fetch(url);
     let html = await response.text();
     return html;
   }
 
-  qsText = function(doc, selector) {
+  qsText(doc, selector) {
     let element = doc.querySelector(selector);
     return element ? element.textContent.trim() : '';
   }
 
-  qsImgSrcPath = function(doc, selector) {
+  qsImgSrcPath(doc, selector) {
     let element = doc.querySelector(selector);
 
     if (element) {
@@ -36,13 +35,13 @@ class NOAA {
     return '';
   }
 
-  getLocation = function(href) {
+  getLocation(href) {
     let element = document.createElement("a");
     element.href = href;
     return element;
   }
 
-  parseConditions = function(doc) {
+  parseConditions(doc) {
     // Strip the celcius from the dewpoint
     var dewpoint = this.qsText(doc, '#current_conditions_detail > table > tbody > tr:nth-child(4) > td:nth-child(2)');
     dewpoint = dewpoint.split(' ')[0]
@@ -72,7 +71,7 @@ class NOAA {
     }
   }
 
-  parseAlerts = function(doc) {
+  parseAlerts(doc) {
     let selector = 'body > main > div > div.panel.panel-danger > div.panel-body > ul > li > a'
     let elements = doc.querySelectorAll(selector);
     let alerts = [];
@@ -90,7 +89,7 @@ class NOAA {
     return alerts;
   }
 
-  parseLocation = function(doc) {
+  parseLocation(doc) {
     let location = this.qsText(doc, '#current-conditions > div.panel-heading > div > h2');
     let name = location.split(' (')[0];
     let identifier = location.slice(location.length-5, location.length-1);
@@ -101,7 +100,7 @@ class NOAA {
     }
   }
 
-  parseRadar = function(doc) {
+  parseRadar(doc) {
     let anchorElement = doc.querySelector('#radar > a:nth-child(2)');
     let path = this.qsImgSrcPath(doc, '#radar > a:nth-child(2) > img');
     let imgPath = `https://radar.weather.gov${path}`;
@@ -112,7 +111,7 @@ class NOAA {
     }
   }
 
-  parseAbout = function(doc) {
+  parseAbout(doc) {
     let locationElement = doc.querySelector('#about_forecast > div:nth-child(1) > div.right');
     let fullLocation = locationElement.innerHTML;
     let loc = fullLocation.split('<br>')[0];
@@ -126,7 +125,7 @@ class NOAA {
     }
   }
 
-  parseSatellite = function(doc) {
+  parseSatellite(doc) {
     let anchorElement = doc.querySelector('#radar > a:nth-child(3)');
     let path = this.qsImgSrcPath(doc, '#radar > a:nth-child(3) > img');
     let imgPath = `https://forecast.weather.gov${path}`;
@@ -137,7 +136,7 @@ class NOAA {
     }
   }
 
-  parseForecasts = function(doc) {
+  parseForecasts(doc) {
     let liElements = doc.querySelectorAll('#seven-day-forecast-list > li')
     let forecasts = [];
 
@@ -166,7 +165,7 @@ class NOAA {
     return forecasts;
   }
 
-  parse = function(html) {
+  parse(html) {
     let parser = new DOMParser();
     let doc = parser.parseFromString(html, "text/html");
 
