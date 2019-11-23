@@ -2,7 +2,7 @@
   <head lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="apple-mobile-web-app-title" content="Partly Cloudy" />
-    <link rel="apple-touch-icon" href="/static/icon.png" />
+    <link rel="apple-touch-icon" href="icon.png" />
     <link rel="icon" href="favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" />
