@@ -24,6 +24,7 @@
 
         <section id="conditions">
           <header>
+            <img src="location.svg" class="right" v-on:click="getLocation">
             <h1>Current Conditions at</h1>
             <h2>{{ location.name }}</h2>
           </header>

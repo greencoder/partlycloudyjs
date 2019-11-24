@@ -49,6 +49,13 @@ section header {
   font-size: 1.2em;
 }
 
+section header img.right {
+  float: right;
+  margin: 20px 10px;
+  height: 25px;
+  opacity: 0.5;
+}
+
 section h1 {
   font-size: 0.9em;
   margin: 5px 0px;

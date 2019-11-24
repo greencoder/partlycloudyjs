@@ -11,6 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
       alerts: [],
       about: {}
     },
+    methods: {
+      handleGeoPosition: function(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        self.location.href = '/MapClick.php?lon=' + lng + '&lat=' + lat;
+      },
+      handleGeoError: function(error) {
+        alert(error);
+      },
+      getLocation: function() {
+        navigator.geolocation.getCurrentPosition(this.handleGeoPosition, this.handleGeoError);
+      }
+    },
     mounted() {
       let urlParams = new URLSearchParams(window.location.search);
       let latitude = urlParams.get('lat');

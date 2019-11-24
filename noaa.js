@@ -28,7 +28,6 @@ class NOAA {
       let anchorElement = this.getLocation(element.src);
       let pathName = anchorElement.pathname;
       let index = anchorElement.href.indexOf(pathName);
-      anchorElement.href.slice()
       return anchorElement.href.slice(index);
     }
 
@@ -168,6 +167,11 @@ class NOAA {
   parse(html) {
     let parser = new DOMParser();
     let doc = parser.parseFromString(html, "text/html");
+
+    // Ensure relative links are based on the noaa domain
+    let base = doc.createElement('base');
+    base.href = 'https://forecast.weather.gov';
+    doc.head.appendChild(base);
 
     return {
       "conditions": this.parseConditions(doc),
